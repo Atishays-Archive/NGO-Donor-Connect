@@ -12,5 +12,11 @@ Assets - Launcher Icons\
 Screenshots - Screenshots of App
 
 ## Tools/Framework/Platform
+IDE - Android Studio\
+Language - Dart\
+Framework - Flutter\
+Authentication & Database - Firebase(Authentication & Realtime Database)
+
+[Github ID](https://github.com/atishayj2202) - atishayj2202
 
 #### Completion Date : 24 Jan 2021, Sunday
