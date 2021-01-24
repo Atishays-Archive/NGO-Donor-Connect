@@ -1,5 +1,6 @@
 # NGO/Donor Connect
 
+### For "IIT Bombay I-Hack Open Coding Challenge" Competition
 A Cross-Platform App(ios/Android)\
 This app aims to reduce gap between the Donor and NGOs.\
 This app would help people to donate money to NGOs.\
@@ -17,4 +18,3 @@ Framework - Flutter\
 Authentication & Database - Firebase(Authentication & Realtime Database)
 
 [Github ID](https://github.com/atishayj2202) - atishayj2202
-### For "IIT Bombay I-Hack Open Coding Challenge" Competition
