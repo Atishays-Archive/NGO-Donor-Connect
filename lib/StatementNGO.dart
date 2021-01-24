@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:ngo_donor_connect/NGO_Home.dart';
 import 'package:recase/recase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'SignIn.dart';
 
 class MyNGOStatement extends StatefulWidget {
@@ -18,6 +19,7 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
   var errtext = "Fetching Data";
   var user;
   List<dynamic> data = [];
+
   void abc() {
     FirebaseDatabase.instance
         .reference()
@@ -28,26 +30,24 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
       List<dynamic> myKeys = value.value.keys.toList();
       if (myKeys.contains("Donation")) {
         myKeys = value.value["Donation"].keys.toList();
-        for(var i = 0; i < myKeys.length; i++){
+        for (var i = 0; i < myKeys.length; i++) {
           var temp = {};
           temp["head"] = value.value["Donation"][myKeys[i]]["sname"].toString();
-          temp["des"] =  "Rs." + value.value["Donation"][myKeys[i]]["amount"].toString() + "\n" + value.value["Donation"][myKeys[i]]["date"].toString();
+          temp["des"] = "Rs." +
+              value.value["Donation"][myKeys[i]]["amount"].toString() +
+              "\n" +
+              value.value["Donation"][myKeys[i]]["date"].toString();
           data.add(temp);
         }
         errtext = "";
-      }
-      else{
+      } else {
         errtext = "You don't have any donations";
       }
-      setState(() {
-
-      });
+      setState(() {});
       setState(() {});
     }).catchError((err) {
       errtext = "Unexpected Error\n Try Again Later";
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -62,23 +62,19 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
     } else if (user == null) {
       FirebaseAuth.instance
           .signInWithEmailAndPassword(
-          email: prefs.getStringList("Data")[0],
-          password: prefs.getStringList("Data")[1])
+              email: prefs.getStringList("Data")[0],
+              password: prefs.getStringList("Data")[1])
           .then((value) {
         user = value.user;
         abc();
       }).catchError((err) {
         errtext = "Unexpected Error\n Try Again Later";
-        setState(() {
-
-        });
+        setState(() {});
       });
     } else {
       abc();
     }
   }
-
-
 
   @override
   void initState() {
@@ -87,6 +83,7 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
     super.initState();
     setData();
   }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -102,18 +99,19 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
             new Text(errtext),
             new Expanded(
                 child: new ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
-                    color: Colors.white,
-                    thickness: 5,
-                  ),
-                  itemCount: data.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return ListTile(
-                      title: Text(ReCase(data[index]["head"].toString()).titleCase),
-                      subtitle: Text(ReCase(data[index]["des"].toString()).titleCase),
-                    );
-                  },
-                )),
+              separatorBuilder: (context, index) => Divider(
+                color: Colors.white,
+                thickness: 5,
+              ),
+              itemCount: data.length,
+              itemBuilder: (BuildContext context, index) {
+                return ListTile(
+                  title: Text(ReCase(data[index]["head"].toString()).titleCase),
+                  subtitle:
+                      Text(ReCase(data[index]["des"].toString()).titleCase),
+                );
+              },
+            )),
           ]),
       bottomNavigationBar: BottomAppBar(
         child: new Row(
@@ -126,21 +124,20 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MyNGOh()),
+                  MaterialPageRoute(builder: (context) => MyNGOh()),
                 );
               },
             ),
             IconButton(
-              icon: Icon(Icons.request_page_sharp),
-              disabledColor: Colors.green,
-              onPressed: null
-            ),
+                icon: Icon(Icons.request_page_sharp),
+                disabledColor: Colors.green,
+                onPressed: null),
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () async {
                 FirebaseAuth.instance.signOut().then((value) async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
                   prefs.clear();
                   Navigator.push(
                     context,

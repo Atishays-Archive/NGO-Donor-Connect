@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ngo_donor_connect/MainPage.dart';
-import 'package:ngo_donor_connect/NGO_info.dart';
 import 'package:ngo_donor_connect/SignIn.dart';
 import 'package:ngo_donor_connect/StatementDonor.dart';
 import 'package:recase/recase.dart';
@@ -137,9 +136,7 @@ class _MyDonorH extends State<MyDonorH> {
               onPressed: () async {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MyDStatement()),
+                  MaterialPageRoute(builder: (context) => MyDStatement()),
                 );
               },
             ),

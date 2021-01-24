@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart' as lnt;
 import 'package:ngo_donor_connect/Donor_Home.dart';
 import 'package:ngo_donor_connect/NGO_info.dart';
 import 'package:ngo_donor_connect/StatementDonor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'SignIn.dart';
 
 class MyMainPage extends StatefulWidget {
@@ -77,28 +78,29 @@ class _MyMainPageState extends State<MyMainPage> {
                     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 subdomains: ['a', 'b', 'c']),
             new MarkerLayerOptions(markers: [
-              for(var index = 0; index < data.length; index++) new Marker(
-                width: 45.0,
-                height: 45.0,
-                point: new lnt.LatLng(
-                    data[index]["lat"].toDouble(), data[index]["long"].toDouble()),
-                builder: (ctx) => new Container(
-                  height: 45,
-                  width: 45,
-                  child: IconButton(
-                    icon: Icon(Icons.location_on, color: Colors.blue),
-                    iconSize: 55,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                MyNGOI(uid: data[index]["id"].toString())),
-                      );
-                    },
+              for (var index = 0; index < data.length; index++)
+                new Marker(
+                  width: 45.0,
+                  height: 45.0,
+                  point: new lnt.LatLng(data[index]["lat"].toDouble(),
+                      data[index]["long"].toDouble()),
+                  builder: (ctx) => new Container(
+                    height: 45,
+                    width: 45,
+                    child: IconButton(
+                      icon: Icon(Icons.location_on, color: Colors.blue),
+                      iconSize: 55,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  MyNGOI(uid: data[index]["id"].toString())),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
               new Marker(
                 width: 45.0,
                 height: 45.0,

@@ -1,13 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart';
 import 'package:ngo_donor_connect/Donor_Home.dart';
-import 'package:ngo_donor_connect/MainPage.dart';
 import 'package:ngo_donor_connect/NGO_Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'SignUp.dart';
-import 'package:flutter/services.dart';
 
 class MySignIn extends StatefulWidget {
   MySignIn({Key key}) : super(key: key);

@@ -3,7 +3,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:ngo_donor_connect/MainPage.dart';
 import 'package:ngo_donor_connect/SignIn.dart';
 import 'package:ngo_donor_connect/StatementNGO.dart';
 import 'package:recase/recase.dart';
@@ -128,8 +127,7 @@ class _MyNGOh extends State<MyNGOh> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MyNGOStatement()),
+                  MaterialPageRoute(builder: (context) => MyNGOStatement()),
                 );
               },
             ),
@@ -137,7 +135,8 @@ class _MyNGOh extends State<MyNGOh> {
               icon: Icon(Icons.exit_to_app),
               onPressed: () async {
                 FirebaseAuth.instance.signOut().then((value) async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
                   prefs.clear();
                   Navigator.push(
                     context,

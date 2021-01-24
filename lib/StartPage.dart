@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:ngo_donor_connect/Donor_Home.dart';
 import 'package:ngo_donor_connect/NGO_Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/services.dart';
 
 import 'SignIn.dart';
 
@@ -62,7 +62,7 @@ class _MyStartState extends State<MyStart> {
         setState(() {});
         if (abx < 1) {
           time.cancel();
-          if(change == null){
+          if (change == null) {
             change = MySignIn();
           }
           Navigator.push(
