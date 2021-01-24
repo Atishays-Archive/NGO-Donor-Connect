@@ -1,8 +1,8 @@
 # NGO/Donor Connect
 
-A Cross-Platform App(ios/Android)
-This app aims to reduce gap between the Donor and NGOs.
-This app would help people to donate money to NGOs.
+A Cross-Platform App(ios/Android)\
+This app aims to reduce gap between the Donor and NGOs.\
+This app would help people to donate money to NGOs.\
 
 ## Getting Started
 
