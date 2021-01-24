@@ -3,12 +3,13 @@
 A Cross-Platform App(ios/Android)\
 This app aims to reduce gap between the Donor and NGOs.\
 This app would help people to donate money to NGOs.\
+Developed By ATISHAYA JAIN
 
-## Getting Started
+## Folders
+lib - Source Code Files
+Assets - Launcher Icons
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+## Tools/Framework/Platform
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
