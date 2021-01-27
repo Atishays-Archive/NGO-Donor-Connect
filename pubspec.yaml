@@ -40,8 +40,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path_android : "Assets/androidlogo.png"
-  image_path_ios : "Assets/ioslogo.png"
+  image_path_android: "Assets/androidlogo.png"
+  image_path_ios: "Assets/ioslogo.png"
   image_path: "Assets/ioslogo.png"
 
 flutter:

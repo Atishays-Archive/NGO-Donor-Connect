@@ -8,6 +8,8 @@ import 'package:ngo_donor_connect/StatementNGO.dart';
 import 'package:recase/recase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'NGO_Setup.dart';
+
 class MyNGOh extends StatefulWidget {
   MyNGOh({Key key}) : super(key: key);
 
@@ -128,6 +130,16 @@ class _MyNGOh extends State<MyNGOh> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MyNGOStatement()),
+                );
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.settings),
+              disabledColor: Colors.green,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyNGO_Set()),
                 );
               },
             ),

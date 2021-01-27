@@ -6,6 +6,7 @@ import 'package:ngo_donor_connect/NGO_Home.dart';
 import 'package:recase/recase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'NGO_Setup.dart';
 import 'SignIn.dart';
 
 class MyNGOStatement extends StatefulWidget {
@@ -132,6 +133,16 @@ class _MyNGOStatementState extends State<MyNGOStatement> {
                 icon: Icon(Icons.request_page_sharp),
                 disabledColor: Colors.green,
                 onPressed: null),
+            IconButton(
+              icon: Icon(Icons.settings),
+              disabledColor: Colors.green,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyNGO_Set()),
+                );
+              },
+            ),
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () async {
