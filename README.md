@@ -1,10 +1,8 @@
 # NGO/Donor Connect
-
+##### ~Developer : Atishaya Jain
 ### For "IIT Bombay I-Hack Open Coding Challenge" Competition
 A Cross-Platform App(ios/Android)\
-This app aims to reduce gap between the Donor and NGOs.\
-This app would help people to donate money to NGOs.\
-Developed By ATISHAYA JAIN
+This app aims to bridge the gap between the have and have nots. It helps the user discover NGOs which are seeking donations and easily compare them to decide the right organisation. The app takes a step further and also allows the user to directly make donations with click of a few buttons.
 
 ## Folders
 lib - Source Code Files\
