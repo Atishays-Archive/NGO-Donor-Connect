@@ -24,6 +24,8 @@ class _MyNGOI extends State<MyNGOI> {
   var _name;
   var muser;
   var uname;
+  var des = "NA";
+  var addr = "NA";
   var data = {};
   var user;
   final _id = TextEditingController();
@@ -44,6 +46,14 @@ class _MyNGOI extends State<MyNGOI> {
         .once()
         .then((value) async {
       _name = value.value["name"];
+
+      List<dynamic> myKeys = value.value.keys.toList();
+      if (myKeys.contains("add")) {
+        addr = value.value["add"];
+      }
+      if (myKeys.contains("des")) {
+        des = value.value["des"];
+      }
       setState(() {});
     });
   }
@@ -179,88 +189,106 @@ class _MyNGOI extends State<MyNGOI> {
             ]),
         automaticallyImplyLeading: false,
       ),
-      body: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(padding: EdgeInsets.only(top: 20.0)),
-            new Text(
-              err,
-              textAlign: TextAlign.center,
-              style: new TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w200,
-                  color: Colors.red,
-                  fontFamily: "Roboto"),
-            ),
-            new Text(
-              "Name:\n" + ReCase(_name.toString()).titleCase,
-              textAlign: TextAlign.center,
-              style: new TextStyle(
-                  fontSize: 60,
-                  fontWeight: FontWeight.w200,
-                  fontFamily: "Roboto"),
-            ),
-            Padding(padding: EdgeInsets.only(top: 40.0)),
-            new TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              keyboardType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              controller: _id,
-              style: new TextStyle(
-                  color: const Color(0xFFffffff),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: "Roboto"),
-              decoration: new InputDecoration(
-                hintText: "Amount to Donate?",
-                labelText: "Amount",
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(width: 4, color: Colors.green)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(width: 4, color: Colors.red)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(width: 4, color: Colors.white)),
+      body: new SingleChildScrollView(
+        child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(padding: EdgeInsets.only(top: 20.0)),
+              new Text(
+                err,
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.red,
+                    fontFamily: "Roboto"),
               ),
-            ),
-            Padding(padding: EdgeInsets.only(top: 20.0)),
-            new FloatingActionButton(
-              child: Icon(Icons.send),
-              onPressed: () {
-                var amount = 0;
-                if (_id.text.isNotEmpty) {
-                  amount = int.parse(_id.text);
-                  if (amount > 0) {
-                    final DateTime now = DateTime.now().toLocal();
-                    data["date"] = DateFormat.jm().format(now) +
-                        DateFormat(' | EEE d MMM yyyy').format(now);
-                    data["amount"] = amount;
-                    updateData("NGO", data["rid"]);
-                    updateData("Donor", data["sid"]);
-                    setState(() {
-                      err = "Done";
-                    });
+              new Text(
+                "Name:\n" + ReCase(_name.toString()).titleCase,
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.w200,
+                    fontFamily: "Roboto"),
+              ),
+              new Text(
+                "Description: " + des.toString(),
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    fontFamily: "Roboto"),
+              ),
+              new Text(
+                "Address: " + addr.toString(),
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    fontFamily: "Roboto"),
+              ),
+              Padding(padding: EdgeInsets.only(top: 40.0)),
+              new TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                controller: _id,
+                style: new TextStyle(
+                    color: const Color(0xFFffffff),
+                    fontWeight: FontWeight.w200,
+                    fontFamily: "Roboto"),
+                decoration: new InputDecoration(
+                  hintText: "Amount to Donate?",
+                  labelText: "Amount",
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderSide: BorderSide(width: 4, color: Colors.green)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderSide: BorderSide(width: 4, color: Colors.red)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderSide: BorderSide(width: 4, color: Colors.white)),
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(top: 20.0)),
+              new FloatingActionButton(
+                child: Icon(Icons.send),
+                onPressed: () {
+                  var amount = 0;
+                  if (_id.text.isNotEmpty) {
+                    amount = int.parse(_id.text);
+                    if (amount > 0) {
+                      final DateTime now = DateTime.now().toLocal();
+                      data["date"] = DateFormat.jm().format(now) +
+                          DateFormat(' | EEE d MMM yyyy').format(now);
+                      data["amount"] = amount;
+                      updateData("NGO", data["rid"]);
+                      updateData("Donor", data["sid"]);
+                      setState(() {
+                        err = "Done";
+                      });
+                    } else {
+                      setState(() {
+                        err = "Amount must be positive";
+                      });
+                    }
                   } else {
                     setState(() {
-                      err = "Amount must be positive";
+                      err = "Pls Fill Amount";
                     });
                   }
-                } else {
-                  setState(() {
-                    err = "Pls Fill Amount";
-                  });
-                }
-              },
-            ),
-          ]),
+                },
+              ),
+            ]),
+      ),
       bottomNavigationBar: BottomAppBar(
         child: new Row(
           mainAxisSize: MainAxisSize.max,
