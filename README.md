@@ -17,4 +17,4 @@ Authentication & Database - Firebase(Authentication & Realtime Database)
 
 [Github ID](https://github.com/atishayj2202) - atishayj2202
 
-#### Completion Date : 24 Jan 2021, Sunday
+#### Completion Date : 29 Jan 2021, Sunday
