@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:ngo_donor_connect/NGO_Home.dart';
 import 'package:ngo_donor_connect/SignIn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,15 +18,78 @@ class MyNGO_Set extends StatefulWidget {
 
 class _MyNGO_Set extends State<MyNGO_Set> {
   final _id = TextEditingController();
+  final _addr = TextEditingController();
+  var user;
+
+  void abc() {
+    FirebaseDatabase.instance
+        .reference()
+        .child("NGO")
+        .child(user.uid)
+        .once()
+        .then((value) async {
+      List<dynamic> myKeys = value.value.keys.toList();
+      if (myKeys.contains("add")) {
+        _addr.text = value.value["add"];
+      }
+      if (myKeys.contains("des")) {
+        _id.text = value.value["des"];
+      }
+      setState(() {});
+      var mypos = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      FirebaseDatabase.instance
+          .reference()
+          .child("NGO")
+          .child(user.uid)
+          .update({"lat": mypos.latitude, "long": mypos.longitude});
+    }).catchError((err) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MySignIn()),
+      );
+    });
+  }
+
+  Future<void> setData() async {
+    user = FirebaseAuth.instance.currentUser;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (user == null && prefs.getStringList("Data") == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MySignIn()),
+      );
+    } else if (user == null) {
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: prefs.getStringList("Data")[0],
+              password: prefs.getStringList("Data")[1])
+          .then((value) {
+        user = value.user;
+        abc();
+      }).catchError((err) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MySignIn()),
+        );
+      });
+    } else {
+      abc();
+    }
+  }
 
   @override
   void dispose() {
     _id.dispose();
+    _addr.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setData();
+    });
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     super.initState();
@@ -89,7 +154,27 @@ class _MyNGO_Set extends State<MyNGO_Set> {
             ),
             new RaisedButton(
               onPressed: () {
-                print("hello");
+                if (_id.text.isNotEmpty) {
+                  FirebaseDatabase.instance
+                      .reference()
+                      .child("NGO")
+                      .child(user.uid)
+                      .update({"des": _id.text})
+                      .then((value) {})
+                      .catchError((err) {
+                        print(err.message);
+                      });
+                } else {
+                  FirebaseDatabase.instance
+                      .reference()
+                      .child("NGO")
+                      .child(user.uid)
+                      .update({"des": null})
+                      .then((value) {})
+                      .catchError((err) {
+                        print(err.message);
+                      });
+                }
               },
               child: new Text("Update Description"),
             ),
@@ -112,7 +197,7 @@ class _MyNGO_Set extends State<MyNGO_Set> {
               keyboardType: TextInputType.multiline,
               minLines: 2,
               maxLines: 2,
-              controller: _id,
+              controller: _addr,
               style: new TextStyle(
                   color: const Color(0xFFffffff),
                   fontWeight: FontWeight.w200,
@@ -133,7 +218,27 @@ class _MyNGO_Set extends State<MyNGO_Set> {
             ),
             new RaisedButton(
               onPressed: () {
-                print("hello");
+                if (_addr.text.isNotEmpty) {
+                  FirebaseDatabase.instance
+                      .reference()
+                      .child("NGO")
+                      .child(user.uid)
+                      .update({"add": _addr.text})
+                      .then((value) {})
+                      .catchError((err) {
+                        print(err.message);
+                      });
+                } else {
+                  FirebaseDatabase.instance
+                      .reference()
+                      .child("NGO")
+                      .child(user.uid)
+                      .update({"add": null})
+                      .then((value) {})
+                      .catchError((err) {
+                        print(err.message);
+                      });
+                }
               },
               child: new Text("Update Address"),
             ),
